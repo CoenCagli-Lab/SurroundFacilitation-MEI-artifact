@@ -5,7 +5,8 @@ Every number printed across the two manuscripts, emitted by
 key carries the conventions its value was measured under: which mask (`binary`
 or `soft`) and which MEI (`ideal` or `numerical`).
 
-Every number assumes the 93-pixel image spans 2.67 deg, the value stated in their Methods.
+Every number assumes the 93-pixel image spans 2.67 deg, the value stated in the Methods of Fu et al.
+Set once in `csartifact/config.py`.
 
 Every value here is an output of the code in this repository.
 
