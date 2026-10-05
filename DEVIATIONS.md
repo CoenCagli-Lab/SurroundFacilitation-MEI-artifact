@@ -88,19 +88,19 @@ by construction and the suppressive surround is correspondingly tuned to that on
 
 ## D6 — Annulus stimuli: hard edge, no renormalization after blanking
 
-**Contrast is NOT restored after blanking.** Removing the center lowers the image's
+Contrast is NOT restored after blanking. Removing the center lowers the image's
 RMS. Rescaling the annulus back would answer a different question — what an annulus at
 full contrast *could* do — and would inflate the surviving response by construction,
 since the surround was optimized at 0.10 RMS. The reported residual is therefore a
 lower bound.
 
-**The edge is hard**, `keep = (dist >= r)`. No raised-cosine alternative is
+The edge is hard, `keep = (dist >= r)`. No raised-cosine alternative is
 computed.
 
 ## Provenance audit, for D3
 
-Three of their repositories carry **no license**, and absent a license the default is
-all rights reserved. **Re-checked live against the GitHub API on 2026-09-21:**
+Three of their repositories carry no license, and absent a license the default is
+all rights reserved. Checked  against the GitHub API on 2026-09-21:
 
 | repository | license | root LICENSE / COPYING / NOTICE | last pushed |
 |---|---|---|---|
@@ -116,12 +116,12 @@ there is no license-like file at the repository root, and neither
 
 The vendored `cajal/featurevis` LICENSE here is byte-identical to the live one.
 
-**Nothing in this repository is copied from any of them.** Two files cite them, and
+Nothing in this repository is copied from any of them. Two files cite them, and
 both citations record *reading*, not copying:
 
 | file | what it says |
 |---|---|
-| `csartifact/mask.py` | states the mask is reimplemented from the algorithm description and **not** copied from either deposit that carries it |
+| `csartifact/mask.py` | states the mask is reimplemented from the algorithm description and not copied from either deposit that carries it |
 | `csartifact/optimize.py` | cites their `analysis/base.py` for a two-line factual observation — that their surround `gradient_f` composes a Gaussian blur, and a negation when minimizing, and nothing else |
 
 `sinzlab/probabilistic-center-surround` was searched once, for an implementation of
@@ -153,7 +153,7 @@ present and unmodified. It is demonstrably the public repository rather than the
 vendored inside their unlicensed mouse deposit: that copy carries seven operations
 absent from public featurevis — `ChangeSurroundStd`, `ChangeCenterStd`,
 `PostSurroundStd`, `ChangeStdJoint`, `MaskGradient`, `MaskImage` and `ChangeMean` —
-and **none of the seven is present here**, which is precisely why `ChangeSurroundStd`
+and none of the seven is present here, which is precisely why `ChangeSurroundStd`
 had to be reimplemented at all. The one modification is the documented
 `scipy.signal.windows.gaussian` patch. Everything else the repository depends on —
 numpy, scipy, scikit-image, torch, matplotlib, pillow — is an ordinary permissively
