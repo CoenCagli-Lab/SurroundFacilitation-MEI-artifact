@@ -14,9 +14,6 @@ The algorithm:
     5. convex hull of that component
     6. Gaussian blur, sigma 1 px, rescale to [0, 1]
 
-Step 5 ENLARGES the mask relative to a bare threshold, so it makes the leakage
-measured here smaller rather than larger.
-
 Dilation is applied after the hull and before the blur. That ordering is what the
 dilation sweep measured; it is not interchangeable with blurring first.
 
@@ -64,14 +61,13 @@ def create_mask(
     binary = morphology.convex_hull_image(binary)
 
     # Dilation 0 is the mask Fu et al.'s procedure produces. Positive values grow it
-    # outward; NEGATIVE values erode it inward, which is how far short of the filter
-    # the boundary would have to fall for the apparent surround effect to grow rather
-    # than shrink. Erosion exists for the widget (`scripts/make_widget.py`) and feeds
+    # outward; NEGATIVE values erode it inward. 
+    # Erosion exists for the widget (`scripts/make_widget.py`) and feeds
     # no printed figure; no printed number and no assertion uses a negative value.
     #
     # Either way the morphology is applied to the BINARY region, before the blur, so
     # the transition band is produced once by the blur and is the same width at every
-    # setting. Eroding a blurred mask instead would thin the band as well as move it.
+    # setting. 
     if dilation_px > 0:
         binary = ndimage.binary_dilation(binary, iterations=dilation_px)
     elif dilation_px < 0:
