@@ -6,9 +6,7 @@ routed through `Config`. featurevis supplies `GaussianBlur`, `ChangeStd`,
 their analysis code imports `ops.ChangeSurroundStd`, which does not exist in the
 public cajal/featurevis. The classes below fill that gap.
 
-`grad_blur_sigma` is fixed at 1.0, their mouse value, everywhere. It is not a
-swept parameter: its effect on mask size and on the measured artifact is
-non-monotonic, so varying it explains nothing and only adds noise. Setting it to 0
+`grad_blur_sigma` is fixed at 1.0, their mouse value, everywhere. Setting it to 0
 disables the blur.
 """
 from __future__ import annotations
@@ -184,10 +182,7 @@ def optimize_surround(model, mei: torch.Tensor, mask: torch.Tensor, cfg: Config,
                       return_trace: bool = False) -> torch.Tensor:
     """Step 3: hold the MEI fixed inside the mask, optimize outside.
 
-    `objective` is "max" (facilitatory) or "min" (suppressive). Run BOTH, always --
-    the suppressive surround is a mechanism-specific fingerprint and the strongest
-    available check that a model is implemented correctly, because unlike
-    facilitation it has a known expected form.
+    `objective` is "max" (facilitatory) or "min" (suppressive). Run BOTH, always.
 
     Returns the full composite (MEI + optimized surround).
     """
