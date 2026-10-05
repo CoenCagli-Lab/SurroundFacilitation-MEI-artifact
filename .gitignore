@@ -1,0 +1,35 @@
+# macOS
+.DS_Store
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.pytest_cache/
+
+# Development tests, kept local: the repository is a demo, not a library.
+tests/
+
+# Environments
+.venv/
+venv/
+env/
+
+# Results are COMMITTED, not ignored. Full regeneration takes over an hour, so a
+# reader must be able to redraw every figure from the payloads in seconds.
+#
+# Figures are committed too: the spec asks for vector output and the manuscripts
+# cite this repository by URL.
+
+# The paper is not redistributed here -- follow the DOI.
+2026FuToliasFranke_facilitation.pdf
+
+# Local working notes, deliberately NOT shipped: the number registry and manuscript
+# queue (PRINTED_OUTPUTS.md) and the working instructions (CLAUDE.md). Everything a
+# reader needs is in the code, the tests, README.md, NUMBERS.md and DEVIATIONS.md.
+# The release is a single commit taken from the working tree, so these lines keep
+# the notes out of it.
+PRINTED_OUTPUTS.md
+CLAUDE.md

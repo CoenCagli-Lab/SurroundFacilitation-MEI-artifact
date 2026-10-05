@@ -1,0 +1,147 @@
+{
+ "meta": {
+  "series": "model_c",
+  "model": "model_c",
+  "optimizer": {
+   "step_size": 0.1,
+   "mei_iterations": 1000,
+   "surround_iterations": 3000,
+   "pool_threshold": 2.0,
+   "gradient_blur_sigma": 1.0
+  },
+  "geometry": {
+   "img_px": 93,
+   "deg_per_image": 2.67,
+   "sigma_px": 6.966292134831462,
+   "ppd": 34.831460674157306
+  },
+  "beta": 0.3,
+  "seed": 0,
+  "written": "2026-10-04T23:25:35+00:00",
+  "dilations_px": [
+   0,
+   4,
+   9,
+   14,
+   20,
+   25
+  ],
+  "mei_plateau_pct": 6.54441410260158e-05,
+  "plateaus": [
+   {
+    "dilation_px": 0,
+    "facilitatory_plateau_pct": -0.00010564824176422905,
+    "suppressive_plateau_pct": 4.0314368759965625e-05
+   },
+   {
+    "dilation_px": 4,
+    "facilitatory_plateau_pct": 0.00019202447159866052,
+    "suppressive_plateau_pct": -0.02563507338789063
+   },
+   {
+    "dilation_px": 9,
+    "facilitatory_plateau_pct": 0.000392894264797025,
+    "suppressive_plateau_pct": -0.017916711430113946
+   },
+   {
+    "dilation_px": 14,
+    "facilitatory_plateau_pct": 0.00010000311827905178,
+    "suppressive_plateau_pct": 0.0
+   },
+   {
+    "dilation_px": 20,
+    "facilitatory_plateau_pct": 0.013393802751147633,
+    "suppressive_plateau_pct": 2.030190763829837e-05
+   },
+   {
+    "dilation_px": 25,
+    "facilitatory_plateau_pct": 0.0005235028799202182,
+    "suppressive_plateau_pct": -0.00028916041155175324
+   }
+  ],
+  "per_dilation": [
+   {
+    "dilation_px": 0,
+    "ybar_center": 0.17349767684936523,
+    "weight_inside_mask_fraction": 0.015734155221020646
+   },
+   {
+    "dilation_px": 4,
+    "ybar_center": 0.18477186560630798,
+    "weight_inside_mask_fraction": 0.06259399571266784
+   },
+   {
+    "dilation_px": 9,
+    "ybar_center": 0.18638747930526733,
+    "weight_inside_mask_fraction": 0.19179151492458937
+   },
+   {
+    "dilation_px": 14,
+    "ybar_center": 0.18445642292499542,
+    "weight_inside_mask_fraction": 0.39823109576119076
+   },
+   {
+    "dilation_px": 20,
+    "ybar_center": 0.18393969535827637,
+    "weight_inside_mask_fraction": 0.6905071905325023
+   },
+   {
+    "dilation_px": 25,
+    "ybar_center": 0.1838732361793518,
+    "weight_inside_mask_fraction": 0.8523920005752128
+   }
+  ]
+ },
+ "dilation_px": [
+  0,
+  4,
+  9,
+  14,
+  20,
+  25
+ ],
+ "mask_radius_sigma": [
+  1.7407819247227976,
+  2.276338933548158,
+  2.9088292988759745,
+  3.5209048026798238,
+  4.240890958238955,
+  4.8335958868152
+ ],
+ "facilitatory": {
+  "response_pct": [
+   49.052623480414326,
+   37.11647883885938,
+   30.709371559490673,
+   20.030835792041614,
+   4.489088050976497,
+   0.010776595503325659
+  ],
+  "drive_pct": [
+   16.944561162191963,
+   0.9254549946722035,
+   -0.09073538440541595,
+   0.02048565001042668,
+   0.0004449409269913218,
+   -9.466811201619407e-06
+  ]
+ },
+ "suppressive": {
+  "response_pct": [
+   -58.14905608785288,
+   -53.33125803947812,
+   -51.79099885183416,
+   -49.713755722648536,
+   -46.27068130428745,
+   -41.53209920227015
+  ],
+  "drive_pct": [
+   -17.744936547500203,
+   -0.6771004446874063,
+   0.044085263435955646,
+   -0.006304733321138567,
+   -0.0006437443199058812,
+   9.466811201619407e-06
+  ]
+ }
+}

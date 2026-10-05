@@ -1,0 +1,39 @@
+This repository is licensed under the MIT License; see LICENSE.
+
+    Copyright (c) 2026 Ruben Coen-Cagli
+
+
+Third-party code
+----------------
+
+third_party/featurevis/
+
+    featurevis, from https://github.com/cajal/featurevis
+    Copyright (c) 2019 Cajal MICrONS Team
+    MIT License — the original text is retained unmodified at
+    third_party/featurevis/LICENSE and governs that directory.
+
+    MODIFIED. One change from upstream:
+
+        featurevis/ops.py    scipy.signal.gaussian
+                          -> scipy.signal.windows.gaussian
+                             (4 call sites: lines 207, 208, 424, 426)
+
+    The upstream spelling was removed in SciPy 1.13. The replacement exists on
+    both sides of that removal, so the patched copy runs under either and no
+    version pin is needed.
+
+    Nothing else in that directory differs from upstream.
+
+
+Code that is NOT derived from the repositories deposited with Fu et al. (2026)
+------------------------------------------------------------------------------
+
+Three of those repositories carry no license — jiakunf/Fu_et_al_2026,
+lucabaroni/center-surround and sinzlab/probabilistic-center-surround — and
+nothing here is copied from any of them. The mask construction in
+csartifact/mask.py is an independent implementation of an algorithm their paper
+describes, and csartifact/optimize.py's ChangeSurroundStd is an independent
+reimplementation of an operation absent from public featurevis. The full
+provenance audit, with its check date and evidence, is in DEVIATIONS.md under
+D3.

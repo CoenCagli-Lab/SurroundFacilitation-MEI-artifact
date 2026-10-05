@@ -1,0 +1,34 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "csartifact"
+version = "0.1.0"
+description = "Surround facilitation in Fu et al. (2026) as an artifact of the MEI mask"
+requires-python = ">=3.11"   # numpy 2.4 and scipy 1.17 need 3.11
+# The four numeric dependencies are PINNED to the versions the three verification
+# runs used. Every printed number is a float32 optimization result, so the exact
+# last digits depend on the BLAS kernels torch happens to dispatch to; pinning does
+# not make results bit-identical across machines, but it removes the one source of
+# drift that is free to remove. The README says what is and is not promised.
+#
+# matplotlib is unpinned: it does not touch a number.
+dependencies = [
+    "numpy==2.4.1",
+    "scipy==1.17.0",     # the vendored featurevis is patched to
+                         # scipy.signal.windows.gaussian, which exists on both sides
+                         # of the 1.13 removal, so this pin is for reproducibility
+                         # rather than compatibility
+    "scikit-image==0.26.0",
+    "torch==2.9.1",
+    "matplotlib",
+    "pillow",            # scripts/make_widget.py encodes the filter as a PNG; it
+                         # arrives with matplotlib anyway, but is imported directly
+                         # so it is declared directly
+]
+
+# Flat layout: the package sits at the repository root.
+[tool.setuptools.packages.find]
+where = [".", "third_party/featurevis"]
+include = ["csartifact*", "featurevis*"]
