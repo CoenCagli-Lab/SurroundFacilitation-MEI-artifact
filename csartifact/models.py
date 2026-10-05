@@ -341,15 +341,6 @@ class FacilitatoryDN(HeegerDN):
     BOTH surround mechanisms are weighted sums over the SAME 10,000-unit bank, built
     the same way as Model B, and both read the same rectified responses `p_j`.
 
-    Why the pool form rather than a single filter `h_i`: with `s_i = <h_i, x>` and a
-    hard `ReLU(s_i - s_0)`, the gradient of the gain is IDENTICALLY ZERO whenever
-    s_i < s_0. A random initial surround reaches s_i = 0.13 +/- 0.11 (max 0.44 over
-    300 draws), so any s_0 >= 0.5 left the mechanism undiscoverable by gradient
-    ascent -- not merely unprofitable, but invisible. Meanwhile blocking the MEI
-    needed s_0 > 1, since the MEI reached 0.99. No value satisfied both. A weighted
-    sum over 10,000 rectified units has no such dead zone: for any stimulus some
-    weighted units clear d_0, so `s_i > 0` and the gradient is live.
-
     MULTIPLICATIVE ONLY. The gain multiplies `y_i` before the nonlinearity, so
     `y_i = 0` gives `R_i = 1/(1 + ybar)` whatever `s_i` is: the surround cannot drive
     the cell on its own, it only modulates drive the center supplies. An additive
@@ -358,10 +349,7 @@ class FacilitatoryDN(HeegerDN):
 
     DISPLACED. `v_ann` is an annulus peaking at `h_peak_radius` (3.5) envelope sigma,
     so the facilitatory pool draws on units whose receptive fields sit OUTSIDE the
-    classical RF. If it drew on units overlapping `f_i`, gradient ascent would spread
-    the MEI over both and the mask would grow to encompass the whole mechanism -- the
-    same failure as an additive surround by another route. `weight_outside_fraction`
-    reports the separation explicitly.
+    classical RF. 
     """
 
     def __init__(self, cfg, theta: float = 0.0, phase: float = 0.0,
