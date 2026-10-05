@@ -11,7 +11,7 @@ requires-python = ">=3.11"   # numpy 2.4 and scipy 1.17 need 3.11
 # runs used. Every printed number is a float32 optimization result, so the exact
 # last digits depend on the BLAS kernels torch happens to dispatch to; pinning does
 # not make results bit-identical across machines, but it removes the one source of
-# drift that is free to remove. The README says what is and is not promised.
+# drift that is free to remove. 
 #
 # matplotlib is unpinned: it does not touch a number.
 dependencies = [
