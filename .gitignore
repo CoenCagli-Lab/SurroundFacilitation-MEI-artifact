@@ -23,13 +23,3 @@ env/
 # Figures are committed too: the spec asks for vector output and the manuscripts
 # cite this repository by URL.
 
-# The paper is not redistributed here -- follow the DOI.
-2026FuToliasFranke_facilitation.pdf
-
-# Local working notes, deliberately NOT shipped: the number registry and manuscript
-# queue (PRINTED_OUTPUTS.md) and the working instructions (CLAUDE.md). Everything a
-# reader needs is in the code, the tests, README.md, NUMBERS.md and DEVIATIONS.md.
-# The release is a single commit taken from the working tree, so these lines keep
-# the notes out of it.
-PRINTED_OUTPUTS.md
-CLAUDE.md
