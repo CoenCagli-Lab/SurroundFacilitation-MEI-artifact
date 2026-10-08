@@ -5,8 +5,7 @@ Every number printed across the two manuscripts, emitted by
 key carries the conventions its value was measured under: which mask (`binary`
 or `soft`) and which MEI (`ideal` or `numerical`).
 
-Every number assumes the 93-pixel image spans 2.67 deg, the value stated in the Methods of Fu et al.
-Set once in `csartifact/config.py`.
+Every number assumes the 93-pixel image spans 2.67 deg, the value stated in their Methods.
 
 Every value here is an output of the code in this repository.
 
@@ -23,6 +22,7 @@ Every value here is an output of the code in this repository.
 | `geom.mask_diameter_px` | 27 | model A, mask binary, mei ideal |
 | `geom.mask_radius_sigma.A` | 1.93188 | model A, mask soft, mei numerical |
 | `geom.mask_radius_sigma.B` | 1.74266 | model B_d0_2, mask soft, mei numerical |
+| `geom.mask_radius_sigma.B_d0_0` | 1.77806 | model B_d0_0, mask soft, mei numerical |
 | `geom.mask_radius_sigma.C` | 1.74078 | model C, mask soft, mei numerical |
 | `geom.norm_inside_mask` | 98.6561 | model A, mask binary, mei ideal |
 | `geom.norm_outside_mask` | 16.3396 | model A, mask binary, mei ideal |
@@ -47,7 +47,7 @@ Every value here is an output of the code in this repository.
 | `artifact.response_facilitation_closedform` | 31.2596 | model A, mask binary, mei ideal, measure response |
 | `artifact.response_suppression` | -26.6355 | model A, mask soft, mei numerical, measure response, objective minimizing |
 
-## Dilation (Figure 2)
+## Dilation (Figure S1g)
 
 | key | value | conventions |
 |---|---|---|
@@ -71,7 +71,7 @@ Every value here is an output of the code in this repository.
 | `dilation.suppression_undilated.B` | -63.7571 | model B_d0_2, measure response, objective minimizing |
 | `dilation.suppression_undilated.C` | -58.1491 | model C, measure response, objective minimizing |
 
-## Annulus (Figure 3)
+## Annulus (Figure S1h)
 
 | key | value | conventions |
 |---|---|---|

@@ -171,6 +171,12 @@ put("artifact.letter_headline",
 # ---- dilation ------------------------------------------------------------
 
 dil = {s: read(f"{s}_dilation") for s in SERIES}
+
+# Model B with d0 = 0: its undilated mask radius, the upper end of the printed
+# "1.74-1.78 sigma for B and C". Read from the sweep, which builds the mask the
+# same way as the radii above.
+put("geom.mask_radius_sigma.B_d0_0", dil["model_b_d0_0"]["mask_radius_sigma"][0],
+    model="B_d0_0", mask="soft", mei="numerical")
 at9 = {s: d["dilation_px"].index(9) for s, d in dil.items()}
 put("dilation.expansion_px_at_3sigma", 9, model="A")
 for s, short in (("model_a", "A"), ("model_b_d0_2", "B"), ("model_c", "C")):
@@ -226,8 +232,8 @@ SECTIONS = [
     ("Geometry", "geom."),
     ("MEI fidelity", "mei."),
     ("Model A core result and headline", "artifact."),
-    ("Dilation (Figure 2)", "dilation."),
-    ("Annulus (Figure 3)", "annulus."),
+    ("Dilation (Figure S1g)", "dilation."),
+    ("Annulus (Figure S1h)", "annulus."),
 ]
 
 

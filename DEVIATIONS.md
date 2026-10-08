@@ -174,7 +174,7 @@ Choices belonging to this repository rather than to their method.
 
 β sets Model C's facilitatory strength. Model C is the positive control here, not
 their model. **β = 0.3.** At smaller values the optimizer could not tell the
-facilitatory surround apart from the center (Supplement, Section 3.4.1).
+facilitatory surround apart from the center (Supplement, Section 3.1).
 
 ## Model C's facilitatory pool sits outside the measured center
 
@@ -196,13 +196,13 @@ larger measured center.**
 past the mask boundary reproduces the *center* filter's orientation, because that is
 the structure the center filter reads. An iso-oriented facilitatory mechanism
 produces the same orientation for a different reason, so the two can be told apart
-only quantitatively, by the mask-dilation sweep (Figure 2): a real facilitatory
+only quantitatively, by the mask-dilation sweep (Figure S1g): a real facilitatory
 mechanism keeps its facilitation once the mask reaches about 3 σ, and leakage does
 not.
 
 At 90° one image separates the artifact from the genuine facilitatory surround:
 mechanism-driven structure is orthogonal, leaked structure stays iso-oriented,
-and Figure 4 shows exactly that — Model C's facilitatory
+and Figure S1f shows exactly that — Model C's facilitatory
 surround carries clear horizontal structure flanking the vertical center.
 
 ## The payloads are reproducible — identical numbers here, within tolerance elsewhere

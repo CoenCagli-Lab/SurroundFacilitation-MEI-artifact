@@ -62,7 +62,7 @@ class Config:
     # overlapping f_i, gradient ascent would spread the MEI over both and the mask
     # would grow to encompass the whole mechanism.
     # `beta` is the facilitatory strength. At smaller values the optimizer could not
-    # tell the facilitatory surround apart from the center (Supplement, Section 3.4.1).
+    # tell the facilitatory surround apart from the center (Supplement, Section 3.1).
     beta: float = 0.3
     kappa_ori_surr: float = 2.0          # orientation tuning of the facilitatory pool
     h_peak_radius: float = 3.5           # units of target envelope sigma

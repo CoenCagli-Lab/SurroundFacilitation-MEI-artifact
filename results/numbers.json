@@ -512,6 +512,14 @@
     "mei": "numerical"
    }
   },
+  "geom.mask_radius_sigma.B_d0_0": {
+   "value": 1.778061997632842,
+   "tags": {
+    "model": "B_d0_0",
+    "mask": "soft",
+    "mei": "numerical"
+   }
+  },
   "geom.mask_radius_sigma.C": {
    "value": 1.7407819247227976,
    "tags": {
