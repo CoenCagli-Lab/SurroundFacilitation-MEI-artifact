@@ -25,22 +25,18 @@ The filter's fringes up to 3σ are outside the mask, thus a nominal "surround" s
 
 | | Model A | Model B | Model C |
 |---|---|---|---|
-| | *no surround mechanism* | *divisive normalization* | *genuine facilitatory surround* |
-| facilitation, with mask undilated | **+27%** | +13% | +49% |
-| suppression, with mask undilated | **−27%** | −64% | −58% |
-| facilitation once the mask reaches 3σ | **+1%** | +1% | **+31%** |
+| | **no surround mechanism** | *suppressive surround* | *suppressive and facilitatory surrounds* |
+| facilitation, with original mask | **+27%** | +13% | +49% |
+| suppression, with original mask | **−27%** | −64% | −58% |
+| facilitation with mask dilated to reach 3σ | **+1%** | +1% | **+31%** |
 
-**Model A has no surround mechanism and still produces ±27%.**
-If we dilate the mask until it covers the filter, facilitation drops to 1% in models A,B where it is an artifact.
-Model C, which has a real facilitatory mechanism, keeps 31%.
+## The three models (details in Supplemental Methods)
 
-## The three models
-
-| | what it is | why it is here |
+| |  |  |
 |---|---|---|
-| **A** | LN Gabor. One linear filter, ELU+1 output. | The negative control. No pool, no inhibition, **no surround mechanism of any kind**. Facilitation is produced entirely by the center/surround definition. |
-| **B** | Heeger divisive normalization over a 10,000-unit pool. d₀ = 2 primary; d₀ = 0 is the faithful replication of their published model. | One of the models used in Fu et al. It includes a suppressive surround but no facilitatory surround. |
-| **C** | Model B's pool plus a multiplicative gain from an orthogonally tuned annular pool. | This model adds a facilitatory surround mechanism. |
+| **A** | Linear-Nonlinear neuron with Gabor filter, ELU+1 output. | No surround mechanism of any kind. Facilitation and suppression are an artifact produced by the center/surround definition. |
+| **B** | Heeger divisive normalization. | One of the models used in Fu et al. It includes a suppressive surround but no facilitatory surround. |
+| **C** | Model B plus a multiplicative gain from an orthogonally tuned annular pool. | This model includes a suppressive surround and a facilitatory surround mechanisms. |
 
 ## Layout
 
