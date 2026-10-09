@@ -105,5 +105,3 @@ implementation of an algorithm the paper describes; `ChangeSurroundStd` is an
 independent reimplementation of an operation absent from public featurevis. The
 provenance was audited against the repositories live on 2026-09-21 and is recorded in
 full in `DEVIATIONS.md` D3.
-
-The paper is not redistributed here; follow the DOI.
