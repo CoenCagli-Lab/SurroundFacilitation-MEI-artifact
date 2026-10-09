@@ -74,9 +74,9 @@ python3 scripts/make_widget.py
 ## About `NUMBERS.md`
 
 Every number quoted in the text is listed in `NUMBERS.md`, computed by
-`scripts/emit_numbers.py`. 
+`scripts/emit_numbers.py` from `results/` in about a minute.
 
-To regenerate all the numbers: `python3 scripts/run_all.py`.
+`python3 scripts/run_all.py` recomputes them from scratch in a little over an hour. 
 
 ## Where each figure in the Supplement comes from
 
