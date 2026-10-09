@@ -42,7 +42,7 @@ Every value here is an output of the code in this repository.
 |---|---|---|
 | `artifact.drive_ratio` | 27.312 | model A, mask soft, mei numerical, measure drive, objective maximizing |
 | `artifact.drive_ratio_closedform` | 32.04 | model A, mask binary, mei ideal, measure drive |
-| `artifact.letter_headline` | rule min(|facilitation|, |suppression|) > 25; facilitation 26.6355; suppression -26.6355; margin 1.63547; holds True | model A, mask soft, mei numerical |
+| `artifact.letter_headline` | rule min(\|facilitation\|, \|suppression\|) > 25; facilitation 26.6355; suppression -26.6355; margin 1.63547; holds True | model A, mask soft, mei numerical |
 | `artifact.response_facilitation` | 26.6355 | model A, mask soft, mei numerical, measure response, objective maximizing |
 | `artifact.response_facilitation_closedform` | 31.2596 | model A, mask binary, mei ideal, measure response |
 | `artifact.response_suppression` | -26.6355 | model A, mask soft, mei numerical, measure response, objective minimizing |

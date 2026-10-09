@@ -260,8 +260,7 @@ lines = [
     "key carries the conventions its value was measured under: which mask (`binary`",
     "or `soft`) and which MEI (`ideal` or `numerical`).",
     "",
-    f"Every number assumes the 93-pixel image spans {cfg.deg_per_image} deg, "
-    "the value stated in their Methods.",
+    f"Every number assumes the 93-pixel image spans {cfg.deg_per_image} deg.",
     "",
     "Every value here is an output of the code in this repository.",
     "",
@@ -276,7 +275,8 @@ for title, prefixes in SECTIONS:
     lines += [f"## {title}", "", "| key | value | conventions |", "|---|---|---|"]
     for k, v in rows:
         tags = ", ".join(f"{a} {b}" for a, b in v["tags"].items()) or "—"
-        lines.append(f"| `{k}` | {fmt(v['value'])} | {tags} |")
+        value = fmt(v["value"]).replace("|", "\\|")    # a bare | would end the table cell
+        lines.append(f"| `{k}` | {value} | {tags} |")
     lines.append("")
 
 lines += [
