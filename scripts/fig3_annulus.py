@@ -2,14 +2,6 @@
 
 Reads results/<series>_annulus.json. No optimization here.
 
-The leakage argument with no optimizer in it. Take the facilitatory composite and
-blank its central disk, sweeping the radius. Nothing is re-optimized and nothing is
-renormalized, so this is a pure forward pass and carries no optimizer assumptions.
-
-The headline: blank the ENTIRE mask -- the dotted lines -- and every model still
-fires several times above baseline on a fraction of the intact drive, because
-the "surround" pixels just outside the mask are still inside the filter. Response
-reaches baseline just inside 3 sigma, which agrees with the dilation sweep about where the filter actually ends.
 """
 import sys
 from pathlib import Path
