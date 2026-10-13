@@ -2,18 +2,6 @@
 
 Reads results/stimuli.npz. No optimization here.
 
-Three blocks, one per model, each 3 columns x 2 sub-rows:
-
-    row 1   MEI (mask outlined)   facilitatory surround   facilitatory composite
-    row 2   "MEI as above"        suppressive surround    suppressive composite
-
-FIFTEEN IMAGES ON ONE SHARED LUMINANCE SCALE, set by the largest absolute value
-across all of them. The shared scale is the point: on it, Model C's panels
-read as visibly lower-contrast than Model B's, and that is real -- the optimizer
-distributes the same 0.10 RMS surround budget differently between the models. 
-
-The mask is outlined on the MEI and on the surrounds, but NOT on the composites --
-the composite is what the model actually sees.
 """
 import sys
 from pathlib import Path
