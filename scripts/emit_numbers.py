@@ -276,12 +276,6 @@ for title, prefixes in SECTIONS:
         lines.append(f"| `{k}` | {value} | {tags} |")
     lines.append("")
 
-lines += [
-    "---",
-    "",
-    "To rebuild this index from the payloads already in `results/`:",
-    "`python3 scripts/emit_numbers.py`, about a minute. To recompute the values",
-    "themselves first: `python3 scripts/run_all.py`, a little over an hour.",
-]
+
 (REPO / "NUMBERS.md").write_text("\n".join(lines) + "\n")
 print(f"  wrote NUMBERS.md -- {len(numbers)} rows across {written} sections")
