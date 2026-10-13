@@ -1,6 +1,6 @@
 """Regenerate everything from scratch: payloads, numbers, figures.
 
-This script is for someone who wants to check that the
+This script is to check that the
 committed payloads really do come out of this code.
 
 To simply look at the results, read the committed `results/*.json`
