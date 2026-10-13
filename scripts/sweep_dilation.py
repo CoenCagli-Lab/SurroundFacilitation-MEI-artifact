@@ -1,6 +1,6 @@
 """Dilation sweep. Writes `results/<series>_dilation.json`. Feeds Figure 2.
 
-The headline manipulation. Expand the MEI mask outward and re-optimize the surround
+Expand the MEI mask outward and re-optimize the surround
 at every expansion. 
 
 The MEI does not depend on the dilation, so it is optimized ONCE. The mask is
