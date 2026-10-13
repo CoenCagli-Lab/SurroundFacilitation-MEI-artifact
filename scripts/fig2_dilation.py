@@ -9,8 +9,7 @@ inside the filter envelope, it must vanish once the mask reaches the envelope.
 
 The grey band marks where that happens. It is a BAND rather than a line because the
 four models reach 3 sigma at slightly different dilations -- Model A's mask is the
-largest to begin with (1.932 sigma against about 1.74 for B and C) so it crosses first, at
-8.47 px, and Model C last, at 9.74 px. To the left of the band the mask still sits
+largest to begin with, so it crosses first. To the left of the band the mask still sits
 inside the filter and leakage is available; to the right it does not.
 """
 import sys

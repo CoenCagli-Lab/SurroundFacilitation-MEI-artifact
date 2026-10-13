@@ -7,10 +7,9 @@ blank its central disk, sweeping the radius. Nothing is re-optimized and nothing
 renormalized, so this is a pure forward pass and carries no optimizer assumptions.
 
 The headline: blank the ENTIRE mask -- the dotted lines -- and every model still
-fires several times above baseline on 13-21% of the intact drive, because
+fires several times above baseline on a fraction of the intact drive, because
 the "surround" pixels just outside the mask are still inside the filter. Response
-reaches baseline between 1.25 and 1.5 mask radii, i.e. just inside 3 sigma, which
-agrees with the dilation sweep about where the filter actually ends.
+reaches baseline just inside 3 sigma, which agrees with the dilation sweep about where the filter actually ends.
 """
 import sys
 from pathlib import Path
@@ -28,7 +27,7 @@ data = {s: payload(f"{s}_annulus") for s in ORDER}
 
 # The abscissa is the blanked-disk radius in sigma, so the models' own mask radii
 # differ and the "original mask" marker is a band, not a line: Model A's mask is
-# 1.932 sigma, the others about 1.74.
+# the largest.
 mask_radii = [d["meta"]["mask_radius_sigma"] for d in data.values()]
 
 fig, axes = panels(2)

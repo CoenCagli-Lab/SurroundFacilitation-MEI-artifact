@@ -33,12 +33,15 @@ plt.rcParams.update(RC)
 
 # Image size and filter sigma come from the same settings the simulations used.
 IMG_PX, SIGMA_PX = Config().img_px, Config().sigma_px
-SHARED_EXTENT = 1.263            # the same scale Figure 4 uses
 
 ENV_2SIGMA = ENVELOPE_2SIGMA     # magenta, dotted here
 ENV_3SIGMA = ENVELOPE_3SIGMA     # green, dashed here
 
 arrays = stimuli()
+# The same luminance scale Figure 4 uses: the largest absolute value across all three
+# models' images, not only Model A's.
+SHARED_EXTENT = round(float(max(abs(v).max() for k, v in arrays.items()
+                                if not k.endswith("_mask"))), 3)
 mei = arrays["model_a_mei"]
 mask = arrays["model_a_mask"]
 surround_max = arrays["model_a_surround_facilitatory"]

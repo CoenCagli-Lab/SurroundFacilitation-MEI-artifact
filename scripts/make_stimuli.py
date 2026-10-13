@@ -6,9 +6,7 @@ a 93x93 float array is unreadable as JSON and bloats the repository, and eightee
 them more so.
 
 THERE IS NO INDEX PAYLOAD BESIDE IT. `np.load` lists the arrays; the geometry scalars
-an index would carry are in the sweep payloads for these same three configurations;
-and the shared luminance extent Figure 4 hardcodes is printed by this run so it can
-be re-checked against the constant.
+an index would carry are in the sweep payloads for these same three configurations.
 
 Figure 4 draws fifteen images on one shared luminance scale -- three models, five
 images each: the MEI, the facilitatory and suppressive surrounds, and the two
@@ -34,7 +32,6 @@ import time
 from pathlib import Path
 
 import numpy as np
-import torch
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "third_party/featurevis"))
@@ -44,9 +41,7 @@ from csartifact.mask import mask_radius_px
 from csartifact.models import build
 from csartifact.optimize import (center_only, mask_for, optimize_mei,
                                  optimize_surround)
-from _payload import RESULTS, plateau_pct
-
-torch.set_num_threads(4)
+from _payload import RESULTS
 
 # Figure 4's three blocks. Model B here is the PRIMARY d_0 = 2, not the as-published
 # variant -- Figure 4 shows the mechanism, and Figures 2 and 3 carry the d_0 = 0
@@ -61,44 +56,32 @@ SERIES = {
 def main() -> int:
     t0 = time.perf_counter()
     arrays: dict[str, np.ndarray] = {}
-    summary = {}
 
     for name, cfg in SERIES.items():
         t = time.perf_counter()
         model = build(cfg)
-        mei, mei_trace = optimize_mei(model, cfg, return_trace=True)
+        mei = optimize_mei(model, cfg)
         mask = mask_for(mei, cfg)
         center = center_only(mei, mask)
 
         block = {"mei": mei, "mask": mask}
         for objective, key in (("max", "facilitatory"), ("min", "suppressive")):
-            composite, _ = optimize_surround(model, mei, mask, cfg,
-                                             objective=objective, return_trace=True)
+            composite = optimize_surround(model, mei, mask, cfg, objective=objective)
             block[f"surround_{key}"] = composite - center
             block[f"composite_{key}"] = composite
 
         for key, tensor in block.items():
             arrays[f"{name}_{key}"] = np.asarray(tensor).squeeze().astype(np.float32)
 
-        extent = float(max(abs(arrays[f"{name}_composite_facilitatory"]).max(),
-                           abs(arrays[f"{name}_composite_suppressive"]).max()))
-        summary[name] = {
-            "mask_radius_sigma": mask_radius_px(mask.numpy().squeeze()) / cfg.sigma_px,
-            "luminance_extent": extent,
-            "mei_plateau_pct": plateau_pct(mei_trace),
-        }
-        print(f"  {name}: 6 arrays, mask {summary[name]['mask_radius_sigma']:.4f} sigma, "
-              f"|max| {extent:.4f}, MEI plateau "
-              f"{summary[name]['mei_plateau_pct']:+.4f}%"
-              f"  ({time.perf_counter() - t:.0f} s)", flush=True)
+        radius = mask_radius_px(mask.numpy().squeeze()) / cfg.sigma_px
+        print(f"  {name}: 6 arrays, mask {radius:.4f} sigma  "
+              f"({time.perf_counter() - t:.0f} s)", flush=True)
 
     RESULTS.mkdir(exist_ok=True)
     np.savez_compressed(RESULTS / "stimuli.npz", **arrays)
 
-    shared = max(s["luminance_extent"] for s in summary.values())
     size_kb = (RESULTS / "stimuli.npz").stat().st_size / 1024
-    print(f"\nwrote stimuli.npz ({len(arrays)} arrays, {size_kb:.0f} KB); "
-          f"shared luminance scale +/-{shared:.3f} "
+    print(f"\nwrote stimuli.npz ({len(arrays)} arrays, {size_kb:.0f} KB) "
           f"({(time.perf_counter() - t0) / 60:.1f} min)", flush=True)
     return 0
 

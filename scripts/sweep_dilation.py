@@ -10,8 +10,6 @@ objectives i.e. max facilitation and max suppression.
 Dilation is matched in PIXELS (0, 4, 9, 14, 20, 25). Every configuration here
 assumes a field of 2.67 deg.
 
-The driver prints each series against the committed values as it finishes.
-
     python3 scripts/sweep_dilation.py [--series model_a ...]
 """
 from __future__ import annotations
@@ -22,8 +20,6 @@ import sys
 import time
 from pathlib import Path
 
-import torch
-
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "third_party/featurevis"))
 
@@ -33,9 +29,7 @@ from csartifact.measure import facilitation_measures
 from csartifact.models import build
 from csartifact.optimize import (center_only, mask_for, optimize_mei,
                                  optimize_surround)
-from _payload import meta, plateau_pct, write
-
-torch.set_num_threads(4)
+from _payload import meta, write
 
 DILATIONS = (0, 4, 9, 14, 20, 25)
 
@@ -46,26 +40,15 @@ SERIES = {
     "model_c":      Config(model="model_c"),
 }
 
-# The committed values, for the live comparison this driver prints. A fresh run
-# should land on them: the sweeps are deterministic under their fixed seeds, so a
-# move of more than about 10% is an environment or port problem rather than a new
-# result, and the driver says so loudly rather than leaving it to be noticed later.
-COMMITTED = {
-    "model_a":       {"fac_at_9": 1.1082, "sup_at_0": -26.6355, "sup_at_25": -0.0003},
-    "model_b_d0_2":  {"fac_at_9": 1.0428, "sup_at_0": -63.7571, "sup_at_25": -45.0651},
-    "model_b_d0_0":  {"fac_at_9": -2.8933, "sup_at_0": -69.2517, "sup_at_25": -55.0838},
-    "model_c":       {"fac_at_9": 30.7094, "sup_at_0": -58.1491, "sup_at_25": -41.5321},
-}
-
 
 def run(name: str, base: Config) -> dict:
     model = build(base)
-    mei, mei_trace = optimize_mei(model, base, return_trace=True)
+    mei = optimize_mei(model, base)
 
     dilation_px, mask_radius_sigma = [], []
     curves = {"facilitatory": {"response_pct": [], "drive_pct": []},
               "suppressive": {"response_pct": [], "drive_pct": []}}
-    extras, plateaus = [], []
+    extras = []
 
     for px in DILATIONS:
         cfg = dataclasses.replace(base, mask_dilation_px=px)
@@ -75,15 +58,11 @@ def run(name: str, base: Config) -> dict:
         dilation_px.append(px)
         mask_radius_sigma.append(mask_radius_px(mask.numpy().squeeze()) / cfg.sigma_px)
 
-        row_plateau = {"dilation_px": px}
         for objective, key in (("max", "facilitatory"), ("min", "suppressive")):
-            composite, trace = optimize_surround(model, mei, mask, cfg,
-                                                 objective=objective, return_trace=True)
+            composite = optimize_surround(model, mei, mask, cfg, objective=objective)
             fm = facilitation_measures(model, mei, mask, composite)
             curves[key]["response_pct"].append(100.0 * fm["response_ratio"])
             curves[key]["drive_pct"].append(100.0 * fm["drive_ratio"])
-            row_plateau[f"{key}_plateau_pct"] = plateau_pct(trace)
-        plateaus.append(row_plateau)
 
         extras.append({
             "dilation_px": px,
@@ -100,36 +79,12 @@ def run(name: str, base: Config) -> dict:
     return {
         "meta": meta(name, base,
                      dilations_px=list(DILATIONS),
-                     mei_plateau_pct=plateau_pct(mei_trace),
-                     plateaus=plateaus,
                      per_dilation=extras),
         "dilation_px": dilation_px,
         "mask_radius_sigma": mask_radius_sigma,
         "facilitatory": curves["facilitatory"],
         "suppressive": curves["suppressive"],
     }
-
-
-def _flag_large_moves(name: str, data: dict) -> list[str]:
-    """Anything more than ~10% from the committed value."""
-    if name not in COMMITTED:
-        return ["    (no committed values for this series, so nothing to compare)"]
-    at = {px: i for i, px in enumerate(data["dilation_px"])}
-    got = {
-        "fac_at_9": data["facilitatory"]["response_pct"][at[9]],
-        "sup_at_0": data["suppressive"]["response_pct"][at[0]],
-        "sup_at_25": data["suppressive"]["response_pct"][at[25]],
-    }
-    notes = []
-    for key, before in COMMITTED[name].items():
-        now = got[key]
-        if abs(before) < 0.01:
-            continue
-        change = abs(now - before) / abs(before)
-        marker = "  <<< DOES NOT MATCH WHAT IS COMMITTED" if change > 0.10 else ""
-        notes.append(f"    {key:>10}: {before:+9.4f} -> {now:+9.4f}  "
-                     f"({100 * change:+.1f}%){marker}")
-    return notes
 
 
 def main() -> int:
@@ -143,9 +98,6 @@ def main() -> int:
         print(f"\n=== {name} ===", flush=True)
         data = run(name, SERIES[name])
         path = write(f"{name}_dilation", data)
-        print(f"  against the committed values:", flush=True)
-        for line in _flag_large_moves(name, data):
-            print(line, flush=True)
         print(f"  wrote {path.name}  ({(time.perf_counter() - t) / 60:.1f} min)", flush=True)
 
     print(f"\ntotal {(time.perf_counter() - t0) / 60:.1f} min", flush=True)

@@ -392,8 +392,7 @@ class FacilitatoryDN(HeegerDN):
         """Share of facilitatory pool weight on units whose RF centers fall INSIDE
         the MEI mask.
 
-        Must stay small, and does: 1.57% at beta = 0.3, measured on the orthogonal
-        primary. The concern this quantity exists to test is whether a larger beta
+        Must stay small, and does (DEVIATIONS.md, Section B). The concern this quantity exists to test is whether a larger beta
         grows the mask until the measured "center" starts absorbing the mechanism.
 
         Takes the mask rather than reading it at construction: the pool weighting
@@ -413,8 +412,8 @@ class FacilitatoryDN(HeegerDN):
     def weight_peak_radius_sigma(self) -> float:
         """Weight-averaged RF-center distance, in envelope sigmas.
 
-        The REALIZED annulus centroid: 3.77 sigma against a nominal `h_peak_radius`
-        of 3.5, because unit density in the bank rises with radius.
+        The REALIZED annulus centroid. It lies beyond the nominal `h_peak_radius`,
+        because unit density in the bank rises with radius.
         """
         v = self.facilitatory_pool_weights
         return float((v * self._pool_distance_px).sum() / v.sum() / self.cfg.sigma_px)

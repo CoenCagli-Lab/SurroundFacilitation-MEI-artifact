@@ -74,9 +74,8 @@ def create_mask(
         binary = ndimage.binary_erosion(binary, iterations=-dilation_px)
         if not binary.any():
             raise ValueError(
-                f"erosion by {-dilation_px} px removes the mask entirely; the "
-                f"undilated mask is about 27 px across, so it cannot survive an "
-                f"erosion approaching its radius")
+                f"erosion by {-dilation_px} px removes the mask entirely; it "
+                f"cannot survive an erosion approaching its radius")
 
     mask = ndimage.gaussian_filter(binary.astype(np.float64), blur_sigma)
     peak = mask.max()
@@ -132,12 +131,10 @@ def analytic_headroom(filt: np.ndarray, mask: np.ndarray,
     field. Contrast enters only through the RATIO `c_s / c_c`.
 
     This is an upper bound. With a binary mask around the ideal MEI it is the
-    closed-form 32% the Supplement prints (`artifact.drive_ratio_closedform`). With
-    the soft mask around the numerical MEI, the configuration Figure 2 uses, it is
-    28.71% (the widget's starting value, `drive_ratio_pct` at dilation 0 in
-    `results/model_a_dilation_dense.json`). Undilated, the optimizer reaches 95% of
-    that bound -- 27.31% against 28.71% -- and much less once the mask is dilated.
-    The widget plots this bound.
+    closed-form value the Supplement prints (`artifact.drive_ratio_closedform`). With
+    the soft mask around the numerical MEI, the configuration Figure 2 uses, the
+    optimizer comes close to it when the mask is undilated, and falls well below it
+    once the mask is dilated. The widget plots this bound.
     """
     inside, outside = filter_split(filt, mask)
     bound = (contrast_surround / contrast_center) * outside / inside

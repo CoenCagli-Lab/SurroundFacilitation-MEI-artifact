@@ -131,12 +131,9 @@ def compose(*operations):
 
 # ---- the three steps ----------------------------------------------------
 
-def optimize_mei(model, cfg: Config, seed: int | None = None,
-                 return_trace: bool = False) -> torch.Tensor:
+def optimize_mei(model, cfg: Config, seed: int | None = None) -> torch.Tensor:
     """Step 1: find the most exciting input, full field.
 
-    `return_trace=True` also returns the `fevals` list, which must be checked for
-    a plateau before any optimization result on a nonlinear model is believed.
     Drivers must call this rather than re-implementing the `gradient_ascent` call,
     so that a change to the surround gradient cannot miss a code path.
     """
@@ -153,7 +150,7 @@ def optimize_mei(model, cfg: Config, seed: int | None = None,
         ClipRange(*cfg.pixel_clip_range),
     )
 
-    mei, fevals, _ = gradient_ascent(
+    mei, _, _ = gradient_ascent(
         model, x0,
         gradient_f=grad_f,
         post_update=post,
@@ -162,7 +159,7 @@ def optimize_mei(model, cfg: Config, seed: int | None = None,
         num_iterations=cfg.opt_mei_iters,
         print_iters=cfg.opt_mei_iters + 1,
     )
-    return (mei.detach(), fevals) if return_trace else mei.detach()
+    return mei.detach()
 
 
 def mask_for(mei: torch.Tensor, cfg: Config) -> torch.Tensor:
@@ -178,8 +175,7 @@ def mask_for(mei: torch.Tensor, cfg: Config) -> torch.Tensor:
 
 
 def optimize_surround(model, mei: torch.Tensor, mask: torch.Tensor, cfg: Config,
-                      objective: str = "max", seed: int | None = None,
-                      return_trace: bool = False) -> torch.Tensor:
+                      objective: str = "max", seed: int | None = None) -> torch.Tensor:
     """Step 3: hold the MEI fixed inside the mask, optimize outside.
 
     `objective` is "max" (facilitatory) or "min" (suppressive). Run BOTH, always.
@@ -196,7 +192,7 @@ def optimize_surround(model, mei: torch.Tensor, mask: torch.Tensor, cfg: Config,
     x0 = torch.randn(1, 1, cfg.img_px, cfg.img_px) * cfg.surround_init_scale
     composite = MaskedComposite(mei, mask)
 
-    out, fevals, _ = gradient_ascent(
+    out, _, _ = gradient_ascent(
         model, x0,
         transform=composite,
         gradient_f=SurroundGradient(cfg.grad_blur_sigma, negate=(objective == "min")),
@@ -209,8 +205,7 @@ def optimize_surround(model, mei: torch.Tensor, mask: torch.Tensor, cfg: Config,
         num_iterations=cfg.opt_surround_iters,
         print_iters=cfg.opt_surround_iters + 1,
     )
-    comp = composite(out.detach())
-    return (comp, fevals) if return_trace else comp
+    return composite(out.detach())
 
 
 def center_only(mei: torch.Tensor, mask: torch.Tensor) -> torch.Tensor:

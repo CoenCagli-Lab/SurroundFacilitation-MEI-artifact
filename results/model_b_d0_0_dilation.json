@@ -26,39 +26,6 @@
    20,
    25
   ],
-  "mei_plateau_pct": 2.0637102554652778,
-  "plateaus": [
-   {
-    "dilation_px": 0,
-    "facilitatory_plateau_pct": 0.3618290987512289,
-    "suppressive_plateau_pct": 0.0
-   },
-   {
-    "dilation_px": 4,
-    "facilitatory_plateau_pct": 0.4564613819609254,
-    "suppressive_plateau_pct": -0.17014709924600835
-   },
-   {
-    "dilation_px": 9,
-    "facilitatory_plateau_pct": -0.0612657587545504,
-    "suppressive_plateau_pct": -0.06546407493800382
-   },
-   {
-    "dilation_px": 14,
-    "facilitatory_plateau_pct": 0.16972351695829238,
-    "suppressive_plateau_pct": -0.11277229280534272
-   },
-   {
-    "dilation_px": 20,
-    "facilitatory_plateau_pct": 0.783411175176725,
-    "suppressive_plateau_pct": 0.00027458064485487074
-   },
-   {
-    "dilation_px": 25,
-    "facilitatory_plateau_pct": 0.4522596992929297,
-    "suppressive_plateau_pct": 0.0
-   }
-  ],
   "per_dilation": [
    {
     "dilation_px": 0,

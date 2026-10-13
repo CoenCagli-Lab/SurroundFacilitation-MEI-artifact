@@ -23,7 +23,6 @@ import time
 from pathlib import Path
 
 import numpy as np
-import torch
 
 REPO = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(REPO))
@@ -38,8 +37,6 @@ from csartifact.models import build
 from csartifact.optimize import (mask_for, optimize_mei,
                                  optimize_surround)
 from _payload import RESULTS
-
-torch.set_num_threads(4)
 
 SERIES = ["model_a", "model_b_d0_2", "model_b_d0_0", "model_c"]
 numbers: dict[str, dict] = {}
@@ -172,8 +169,8 @@ put("artifact.letter_headline",
 
 dil = {s: read(f"{s}_dilation") for s in SERIES}
 
-# Model B with d0 = 0: its undilated mask radius, the upper end of the printed
-# "1.74-1.78 sigma for B and C". Read from the sweep, which builds the mask the
+# Model B with d0 = 0: its undilated mask radius, the upper end of the range the
+# Supplement prints for B and C. Read from the sweep, which builds the mask the
 # same way as the radii above.
 put("geom.mask_radius_sigma.B_d0_0", dil["model_b_d0_0"]["mask_radius_sigma"][0],
     model="B_d0_0", mask="soft", mei="numerical")

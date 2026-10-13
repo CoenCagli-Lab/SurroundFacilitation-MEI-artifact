@@ -8,7 +8,7 @@ the disk radius in multiples of the mask radius.
 The manipulation is a pure forward pass.
 
 The headline: blank the ENTIRE mask and every model still fires several times above
-baseline on 13-21% of the intact drive, because the "surround" pixels adjacent to
+baseline on a fraction of the intact drive, because the "surround" pixels adjacent to
 the mask are still inside the filter.
 
 Edge treatment is HARD, `keep = (dist >= r)`. No raised-cosine alternative is
@@ -34,9 +34,7 @@ from csartifact.measure import (ANNULUS_RADII_MULT, blank_center,
                                 radial_distance)
 from csartifact.models import build
 from csartifact.optimize import mask_for, optimize_mei, optimize_surround
-from _payload import meta, plateau_pct, write
-
-torch.set_num_threads(4)
+from _payload import meta, write
 
 SERIES = {
     "model_a":      Config(model="model_a"),
@@ -49,10 +47,9 @@ SERIES = {
 def run(name: str, cfg: Config) -> dict:
     model = build(cfg)
 
-    mei, mei_trace = optimize_mei(model, cfg, return_trace=True)
+    mei = optimize_mei(model, cfg)
     mask = mask_for(mei, cfg)
-    composite, sur_trace = optimize_surround(model, mei, mask, cfg,
-                                             objective="max", return_trace=True)
+    composite = optimize_surround(model, mei, mask, cfg, objective="max")
 
     dist = radial_distance(cfg.img_px)
     r_mask = mask_radius_px(mask.numpy().squeeze())
@@ -77,9 +74,7 @@ def run(name: str, cfg: Config) -> dict:
                      mask_radius_sigma=r_mask / cfg.sigma_px,
                      blank_baseline_response=baseline,
                      drive_intact=drive_intact,
-                     radii_mult_of_mask=list(ANNULUS_RADII_MULT),
-                     mei_plateau_pct=plateau_pct(mei_trace),
-                     surround_plateau_pct=plateau_pct(sur_trace)),
+                     radii_mult_of_mask=list(ANNULUS_RADII_MULT)),
         "radii_px": radii_px,
         "radii_sigma": radii_sigma,
         "response_rel_blank": response_rel_blank,

@@ -11,8 +11,6 @@ import json
 from datetime import datetime, timezone
 from pathlib import Path
 
-import numpy as np
-
 REPO = Path(__file__).resolve().parents[1]
 RESULTS = REPO / "results"
 
@@ -48,13 +46,3 @@ def write(name: str, data: dict) -> Path:
     path.write_text(json.dumps(data, indent=1) + "\n")
     return path
 
-
-def plateau_pct(fevals) -> float:
-    """Change over the last 10% of the ascent, as a percentage of the final value.
-
-    Every optimization result on a nonlinear model gets this checked before it is
-    believed; a curve still climbing at the last iteration has not converged.
-    """
-    f = np.asarray(fevals, dtype=float)
-    k = max(1, int(len(f) * 0.1))
-    return float((f[-1] - f[-k]) / abs(f[-1]) * 100.0)

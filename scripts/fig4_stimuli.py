@@ -7,8 +7,8 @@ Three blocks, one per model, each 3 columns x 2 sub-rows:
     row 1   MEI (mask outlined)   facilitatory surround   facilitatory composite
     row 2   "MEI as above"        suppressive surround    suppressive composite
 
-FIFTEEN IMAGES ON ONE SHARED LUMINANCE SCALE, +/-1.263, which is the measured
-extent across all of them. The shared scale is the point: on it, Model C's panels
+FIFTEEN IMAGES ON ONE SHARED LUMINANCE SCALE, set by the largest absolute value
+across all of them. The shared scale is the point: on it, Model C's panels
 read as visibly lower-contrast than Model B's, and that is real -- the optimizer
 distributes the same 0.10 RMS surround budget differently between the models. 
 
@@ -28,14 +28,15 @@ from _style import MASK_OUTLINE, RC, save, stimuli
 
 plt.rcParams.update(RC)
 
-# One luminance scale across all fifteen panels, so the three models are comparable
-# by eye. Measured by make_stimuli.py, which prints it at the end of its run.
-SHARED_EXTENT = 1.263
 IMG_PX = 93
 BLOCKS = [("model_a", "a   Model A"), ("model_b_d0_2", "b   Model B"),
           ("model_c", "c   Model C")]
 
 arrays = stimuli()
+# One luminance scale across all fifteen panels, so the three models are comparable
+# by eye: the largest absolute value in any of them, rounded for the colorbar label.
+SHARED_EXTENT = round(float(max(abs(v).max() for k, v in arrays.items()
+                                if not k.endswith("_mask"))), 3)
 grid = np.linspace(-IMG_PX / 2, IMG_PX / 2, IMG_PX)
 extent = [-IMG_PX / 2, IMG_PX / 2, -IMG_PX / 2, IMG_PX / 2]
 
