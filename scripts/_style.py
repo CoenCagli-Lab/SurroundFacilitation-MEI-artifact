@@ -1,7 +1,7 @@
-"""The little that figure scripts share: the palette, the series labels, and the
+"""The figure scripts share: the palette, the series labels, and the
 two loaders.
 
-  * The palette and line styles, because they MUST carry over unchanged between
+  * The palette and line styles, because they must carry over unchanged between
     Figures 2 and 3.
   * `payload()`, one line, so no script can silently plot a file that is not there.
   * `stimuli()`, because Figure 4 and Supplementary Figure 2 must draw the same
@@ -46,10 +46,7 @@ ENVELOPE_3SIGMA = "#2e8b57"      # green
 BAND_GREY = "#d9d9d9"            # the 3-sigma band on Figures 2 and 3
 
 # One panel size across Figures 2 and 3, so a reader comparing them is comparing
-# the curves and not the aspect ratios. These are the dimensions of the AXES, in
-# inches, not of the canvas -- `tight_layout` sizes each figure's margins to its own
-# labels, so two nominally identical panels can come out different sizes. `panels()`
-# fixes the margins instead and lets the canvas follow.
+# the curves and not the aspect ratios. 
 PANEL_W, PANEL_H = 3.86, 2.63
 MARGIN = dict(left=0.74, right=0.16, bottom=0.62, top=0.36, wspace=0.78)
 
@@ -95,8 +92,7 @@ def payload(name: str) -> dict:
 
 
 def stimuli() -> dict[str, np.ndarray]:
-    """Every image array Figure 4 and Supplementary Figure 2 draw. One source, so
-    they cannot disagree."""
+    """Every image array Figure 4 and Supplementary Figure 2 draw."""
     path = RESULTS / "stimuli.npz"
     if not path.exists():
         raise SystemExit("missing results/stimuli.npz -- run scripts/make_stimuli.py first")
@@ -104,9 +100,7 @@ def stimuli() -> dict[str, np.ndarray]:
         return {k: z[k] for k in z.files}
 
 
-# PNG is written for Supplementary Figure 2 alone. PDF is the deliverable and the
-# form the manuscripts take, but GitHub renders PDF not at all, so the one figure
-# README.md embeds needs a raster copy.
+# PNG is written for Supplementary Figure 2 alone for README.md 
 PNG_STEMS = {"SuppFig2_model_A"}
 
 
