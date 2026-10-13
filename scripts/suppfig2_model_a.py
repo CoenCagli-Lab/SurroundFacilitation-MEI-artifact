@@ -1,18 +1,7 @@
 """Supplementary Figure 2 -- Geometry, both surrounds, both composites. Model A only.
 
-Also the Letter's Figure 2, and panel (a) alone is the Supplement's Figure 1.
-
 Not a recomputation: it draws the same arrays, through `_style.stimuli()`, that
-fig4_stimuli.py draws for Figure 4, so the Letter and the Supplement cannot drift
-apart. If the stimuli are ever regenerated, the figures move together or not at all.
-
-FIVE image panels:
-
-    (a)  the MEI at twice the linear size of the others, carrying three contours --
-         the mask black solid, the 2 sigma envelope magenta dotted, the 3 sigma
-         envelope green dashed.
-    (b)  facilitatory "surround", and the composite it forms with the MEI.
-    (c)  suppressive "surround", and the composite.
+fig4_stimuli.py draws for Figure 4.
 
 """
 import sys
