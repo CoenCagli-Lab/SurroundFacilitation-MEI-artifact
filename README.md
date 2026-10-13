@@ -20,6 +20,7 @@ This is a proof of principle, not an exhaustive study of MEIs and surrounds.
 
 ![Model A's MEI with its mask and the 2σ and 3σ envelopes, and the facilitatory and suppressive "surrounds" the procedure produces](figures/SuppFig2_model_A.png)
 
+This figure is for a model neuron with a Gabor linear filter followed by rectification. 
 The MEI mask covers close to 2σ of the filter's envelope.
 The filter's fringes are outside the mask, thus a nominal "surround" stimulus drives the filter.
 Models details are in Supplemental Methods.
