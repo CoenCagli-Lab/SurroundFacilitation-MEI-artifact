@@ -7,10 +7,6 @@ the disk radius in multiples of the mask radius.
 **Nothing is re-optimized and nothing is renormalized after blanking.**
 The manipulation is a pure forward pass.
 
-The headline: blank the ENTIRE mask and every model still fires several times above
-baseline on a fraction of the intact drive, because the "surround" pixels adjacent to
-the mask are still inside the filter.
-
 Edge treatment is HARD, `keep = (dist >= r)`. No raised-cosine alternative is
 computed (DEVIATIONS.md, D6).
 
