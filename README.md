@@ -28,7 +28,6 @@ Models details are in Supplemental Methods.
 |---|---|---|---|
 | | no surround mechanism | *suppressive surround* | *suppressive and facilitatory surrounds* |
 | facilitation, with original mask | **+27%** | +13% | +49% |
-| suppression, with original mask | **−27%** | −64% | −58% |
 | facilitation with mask dilated to reach 3σ | **+1%** | +1% | **+31%** |
 
 ## Layout
