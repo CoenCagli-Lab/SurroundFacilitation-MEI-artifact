@@ -1,16 +1,7 @@
 """Figure 2 -- Mask dilation sweep, response and drive.
 
-Reads results/<series>_dilation.json. No optimization here; the payloads were
-written by scripts/sweep_dilation.py, which takes about an hour.
+Reads results/<series>_dilation.json. No optimization here.
 
-The headline manipulation: expand the MEI mask outward and re-optimize the surround
-at every expansion. If the reported facilitation is an artifact of a mask drawn
-inside the filter envelope, it must vanish once the mask reaches the envelope.
-
-The grey band marks where that happens. It is a BAND rather than a line because the
-four models reach 3 sigma at slightly different dilations -- Model A's mask is the
-largest to begin with, so it crosses first. To the left of the band the mask still sits
-inside the filter and leakage is available; to the right it does not.
 """
 import sys
 from pathlib import Path
@@ -72,3 +63,4 @@ print("  facilitation at the 9 px expansion:")
 for s in ORDER:
     i = data[s]["dilation_px"].index(9)
     print(f"    {SERIES[s]['label']:<38} {data[s]['facilitatory']['response_pct'][i]:+9.4f}%")
+
