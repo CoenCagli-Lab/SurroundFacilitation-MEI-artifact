@@ -8,7 +8,6 @@ and redraw the figures in seconds with `--only figures`
 
     python3 scripts/run_all.py                  everything
     python3 scripts/run_all.py --only figures   redraw only, seconds
-    python3 scripts/run_all.py --list           show the stages and exit
 """
 from __future__ import annotations
 
@@ -21,41 +20,33 @@ from pathlib import Path
 HERE = Path(__file__).resolve().parent
 REPO = HERE.parent
 
-# (stage, script, rough minutes)
+# (stage, script)
 STAGES = [
-    ("annulus", "sweep_annulus.py", 6),
-    ("stimuli", "make_stimuli.py", 7),
-    ("dilation", "sweep_dilation.py", 53),
-    ("numbers", "emit_numbers.py", 1),
-    ("figures", "fig2_dilation.py", 0),
-    ("figures", "fig3_annulus.py", 0),
-    ("figures", "fig4_stimuli.py", 0),
-    ("figures", "suppfig2_model_a.py", 0),
+    ("annulus", "sweep_annulus.py"),
+    ("stimuli", "make_stimuli.py"),
+    ("dilation", "sweep_dilation.py"),
+    ("numbers", "emit_numbers.py"),
+    ("figures", "fig2_dilation.py"),
+    ("figures", "fig3_annulus.py"),
+    ("figures", "fig4_stimuli.py"),
+    ("figures", "suppfig2_model_a.py"),
 ]
 
 
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--only", nargs="+", metavar="STAGE",
-                    choices=sorted({s for s, _, _ in STAGES}),
+                    choices=sorted({s for s, _ in STAGES}),
                     help="run only these stages")
-    ap.add_argument("--list", action="store_true", help="show the stages and exit")
     args = ap.parse_args()
 
-    selected = [(s, f, m) for s, f, m in STAGES
+    selected = [(s, f) for s, f in STAGES
                 if args.only is None or s in args.only]
 
-    if args.list:
-        for stage, script, minutes in selected:
-            print(f"  {stage:<9} {script:<22} {minutes or '<1':>3} min")
-        print(f"  {'':<9} {'':<22} {sum(m for _, _, m in selected):>3} min total")
-        return 0
-
-    total = sum(m for _, _, m in selected)
-    print(f"running {len(selected)} steps, roughly {total} min\n", flush=True)
+    print(f"running {len(selected)} steps\n", flush=True)
 
     t0 = time.perf_counter()
-    for stage, script, _ in selected:
+    for stage, script in selected:
         t = time.perf_counter()
         print(f"=== {stage}: {script} ===", flush=True)
         result = subprocess.run([sys.executable, str(HERE / script)], cwd=REPO)
