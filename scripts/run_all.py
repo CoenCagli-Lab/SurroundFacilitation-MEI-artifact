@@ -1,40 +1,10 @@
 """Regenerate everything from scratch: payloads, numbers, figures.
 
-FOR VERIFICATION RATHER THAN INSPECTION. A reader who wants to look at the results
-should read the committed `results/*.json` and redraw the figures in seconds with
-`--only figures`; this script exists for someone who wants to check that the
+This script is for someone who wants to check that the
 committed payloads really do come out of this code.
 
-A little over an hour, dominated by the dilation sweep, which re-optimizes the
-surround at every step. Measured on the machine that produced the committed payloads:
-
-    annulus     6 min
-    stimuli     7 min
-    dilation   53 min      prints each series against the committed values as it
-                           finishes, so a drifting run shows up along the way
-    numbers     1 min
-    figures    <1 min
-
-Cheapest first, so that a run which is not going to reproduce the committed numbers
-is caught early rather than after an hour.
-
-On the machine that produced them the sweeps are deterministic under their fixed
-seeds, and a successful run reproduces every number in the committed payloads
-exactly; only the `written` timestamps differ. On DIFFERENT hardware, BLAS builds
-or torch/SciPy versions expect last-digit differences instead: these are float32
-optimizations accumulated over thousands of iterations. That is not a failure.
-
-`--only figures` redraws from whatever is already in `results/` and optimizes
-nothing.
-
-THE WIDGET IS DELIBERATELY ABSENT, and so is the dense sweep that feeds it. Neither
-`sweep_dilation_dense.py` nor `make_widget.py` is a stage here.
-Rebuild it on its own when it changes:
-
-    python3 scripts/sweep_dilation_dense.py
-    python3 scripts/make_widget.py
-
-Both are analytic and take seconds, so there is no cost to leaving them out.
+To simply look at the results, read the committed `results/*.json`
+and redraw the figures in seconds with `--only figures`
 
     python3 scripts/run_all.py                  everything
     python3 scripts/run_all.py --only figures   redraw only, seconds
@@ -96,8 +66,7 @@ def main() -> int:
         print(f"    [{(time.perf_counter() - t) / 60:.1f} min]\n", flush=True)
 
     print(f"done in {(time.perf_counter() - t0) / 60:.1f} min")
-    print("The sweeps are deterministic, so `git diff results/` should be empty "
-          "except for the timestamps in each meta block.")
+    print("Results are in results/, figures in figures/, numbers in NUMBERS.md.")
     return 0
 
 
