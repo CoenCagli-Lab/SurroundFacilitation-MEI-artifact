@@ -1,18 +1,6 @@
-"""Stimulus arrays. Writes `results/stimuli.npz`. Feeds Figure 4 and Supplementary
-Figure 2 (and so Figure 1, its panel a).
+"""Stimulus arrays. Writes `results/stimuli.npz`. 
 
-Every image the figures draw, computed once and stored as arrays rather than as JSON:
-a 93x93 float array is unreadable as JSON and bloats the repository, and eighteen of
-them more so.
-
-THERE IS NO INDEX PAYLOAD BESIDE IT. `np.load` lists the arrays; the geometry scalars
-an index would carry are in the sweep payloads for these same three configurations.
-
-Figure 4 draws fifteen images on one shared luminance scale -- three models, five
-images each: the MEI, the facilitatory and suppressive surrounds, and the two
-composites. The mask is stored alongside because every figure that shows these
-images outlines it, and Supplementary Figure 2 must draw the SAME Model A arrays as
-Figure 4 rather than recompute them.
+Every image the figures draw, computed once and stored as arrays rather than as JSON.
 
 Per series, six arrays:
 
