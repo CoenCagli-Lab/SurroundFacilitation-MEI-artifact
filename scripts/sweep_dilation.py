@@ -1,19 +1,16 @@
 """Dilation sweep. Writes `results/<series>_dilation.json`. Feeds Figure 2.
 
 The headline manipulation. Expand the MEI mask outward and re-optimize the surround
-at every expansion. If the reported facilitation is an artifact of a mask drawn
-inside the filter envelope, it must vanish once the mask reaches the envelope.
+at every expansion. 
 
 The MEI does not depend on the dilation, so it is optimized ONCE. The mask is
 rebuilt at each expansion and the surround re-optimized against it, under BOTH
-objectives -- the suppressive surround is a mechanism-specific fingerprint and the
-strongest available check that a model is implemented correctly.
+objectives i.e. max facilitation and max suppression.
 
 Dilation is matched in PIXELS (0, 4, 9, 14, 20, 25). Every configuration here
-shares a field of 2.67 deg.
+assumes a field of 2.67 deg.
 
-The driver prints each series against the committed values as it finishes, so a run
-that has drifted shows up during the 53 minutes rather than after them.
+The driver prints each series against the committed values as it finishes.
 
     python3 scripts/sweep_dilation.py [--series model_a ...]
 """
