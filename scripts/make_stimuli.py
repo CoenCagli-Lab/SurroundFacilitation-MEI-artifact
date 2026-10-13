@@ -1,5 +1,5 @@
-"""Stimulus arrays. Writes `results/stimuli.npz`. Feeds Figure 4, Supplementary
-Figure 2 (and so Figure 1, its panel a) and the widget.
+"""Stimulus arrays. Writes `results/stimuli.npz`. Feeds Figure 4 and Supplementary
+Figure 2 (and so Figure 1, its panel a).
 
 Every image the figures draw, computed once and stored as arrays rather than as JSON:
 a 93x93 float array is unreadable as JSON and bloats the repository, and eighteen of

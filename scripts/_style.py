@@ -37,7 +37,7 @@ SERIES = {
 }
 ORDER = ["model_a", "model_b_d0_2", "model_b_d0_0", "model_c"]
 
-# Figure 4, Supplementary Figure 2 and the widget all outline the mask, and mark the
+# Figure 4 and Supplementary Figure 2 both outline the mask, and mark the
 # filter envelope against it, so the colors live here: the same element must not
 # change color between figures.
 MASK_OUTLINE = "#000000"         # black

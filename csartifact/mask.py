@@ -62,8 +62,6 @@ def create_mask(
 
     # Dilation 0 is the mask Fu et al.'s procedure produces. Positive values grow it
     # outward; NEGATIVE values erode it inward. 
-    # Erosion exists for the widget (`scripts/make_widget.py`) and feeds
-    # no printed figure; no printed number and no assertion uses a negative value.
     #
     # Either way the morphology is applied to the BINARY region, before the blur, so
     # the transition band is produced once by the blur and is the same width at every
@@ -134,7 +132,7 @@ def analytic_headroom(filt: np.ndarray, mask: np.ndarray,
     closed-form value the Supplement prints (`artifact.drive_ratio_closedform`). With
     the soft mask around the numerical MEI, the configuration Figure 2 uses, the
     optimizer comes close to it when the mask is undilated, and falls well below it
-    once the mask is dilated. The widget plots this bound.
+    once the mask is dilated.
     """
     inside, outside = filter_split(filt, mask)
     bound = (contrast_surround / contrast_center) * outside / inside

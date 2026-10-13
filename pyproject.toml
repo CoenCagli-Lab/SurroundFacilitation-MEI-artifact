@@ -23,9 +23,6 @@ dependencies = [
     "scikit-image==0.26.0",
     "torch==2.9.1",
     "matplotlib",
-    "pillow",            # scripts/make_widget.py encodes the filter as a PNG; it
-                         # arrives with matplotlib anyway, but is imported directly
-                         # so it is declared directly
 ]
 
 # Flat layout: the package sits at the repository root.

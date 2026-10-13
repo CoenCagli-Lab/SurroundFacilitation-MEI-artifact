@@ -156,7 +156,7 @@ absent from public featurevis — `ChangeSurroundStd`, `ChangeCenterStd`,
 and none of the seven is present here, which is precisely why `ChangeSurroundStd`
 had to be reimplemented at all. The one modification is the documented
 `scipy.signal.windows.gaussian` patch. Everything else the repository depends on —
-numpy, scipy, scikit-image, torch, matplotlib, pillow — is an ordinary permissively
+numpy, scipy, scikit-image, torch, matplotlib — is an ordinary permissively
 licensed dependency and is not vendored.
 
 **Both loose ends are now closed.** The repository carries `LICENSE` — MIT, © 2026

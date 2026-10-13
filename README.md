@@ -35,10 +35,9 @@ Models details are in Supplemental Methods.
 
 ```
 csartifact/          the numerics: models, mask, optimize, measure, config
-scripts/             sweeps, figure scripts, run_all.py, emit_numbers.py, the widget builder
+scripts/             sweeps, figure scripts, run_all.py, emit_numbers.py
 results/             the computed results (committed) + stimuli.npz + numbers.json
 figures/             the figures as PDF, the Model A figure also as PNG
-docs/                an interactive demonstration of the mask-radius effect
 third_party/         featurevis, vendored (MIT, with its own LICENSE)
 LICENSE  NOTICE      MIT, and the one third-party modification
 DEVIATIONS.md        deviations from their method, and implementation notes
@@ -62,13 +61,6 @@ mask size:
 
 ```
 python3 scripts/run_all.py
-```
-
-**The interactive widget** in `docs/` is not part of `run_all.py`; it takes seconds to
-rebuild:
-```
-python3 scripts/sweep_dilation_dense.py
-python3 scripts/make_widget.py
 ```
 
 ## About `NUMBERS.md`
