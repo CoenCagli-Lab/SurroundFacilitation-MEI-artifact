@@ -16,10 +16,3 @@ tests/
 .venv/
 venv/
 env/
-
-# Results are COMMITTED, not ignored. Full regeneration takes over an hour, so a
-# reader must be able to redraw every figure from the payloads in seconds.
-#
-# Figures are committed too: the spec asks for vector output and the manuscripts
-# cite this repository by URL.
-
