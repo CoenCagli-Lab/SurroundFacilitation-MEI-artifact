@@ -84,9 +84,3 @@ Every value here is an output of the code in this repository.
 | `annulus.response_rel_blank.model_b_d0_0` | array[10] — 32.46, 25.51, 17.94, 10.65, … | model B_d0_0, measure response, stimulus annulus |
 | `annulus.response_rel_blank.model_b_d0_2` | array[10] — 38.14, 30.77, 23.65, 15.02, … | model B_d0_2, measure response, stimulus annulus |
 | `annulus.response_rel_blank.model_c` | array[10] — 50.55, 40.19, 29.6, 17.25, … | model C, measure response, stimulus annulus |
-
----
-
-To rebuild this index from the payloads already in `results/`:
-`python3 scripts/emit_numbers.py`, about a minute. To recompute the values
-themselves first: `python3 scripts/run_all.py`, a little over an hour.

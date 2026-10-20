@@ -276,6 +276,5 @@ for title, prefixes in SECTIONS:
         lines.append(f"| `{k}` | {value} | {tags} |")
     lines.append("")
 
-
-(REPO / "NUMBERS.md").write_text("\n".join(lines) + "\n")
+(REPO / "NUMBERS.md").write_text("\n".join(lines).rstrip("\n") + "\n")
 print(f"  wrote NUMBERS.md -- {len(numbers)} rows across {written} sections")
